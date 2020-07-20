@@ -55,6 +55,7 @@ public class Client implements Serializable {
     }
 
     public Client() {
+        //default
     }
 
     public List<Car> getCars() {

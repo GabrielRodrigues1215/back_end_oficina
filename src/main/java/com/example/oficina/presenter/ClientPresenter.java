@@ -9,6 +9,7 @@ import com.example.oficina.models.Car;
 import com.example.oficina.models.Client;
 import java.util.List;
 import java.util.stream.Collectors;
+
 /**
  *
  * @author Gabriel
@@ -22,7 +23,7 @@ public class ClientPresenter {
     private Long numero;
     private String bairro;
     private String email;
-    private List<Car> cars;
+    private List<CarPresenter> cars;
 
     public ClientPresenter(Client client) {
         if (client != null) {
@@ -33,13 +34,14 @@ public class ClientPresenter {
             this.bairro = client.getBairro();
             this.numero = client.getNumero();
             this.rua = client.getRua();
-            if(client.getCars() != null ){
-            this.cars = client.getCars();
+            if (client.getCars() != null) {
+                this.cars = client.getCars().stream().map(CarPresenter::new).collect(Collectors.toList());
             }
-            
+
         }
 
     }
+
     public Long getId() {
         return id;
     }
@@ -67,16 +69,15 @@ public class ClientPresenter {
     public String getEmail() {
         return email;
     }
-    public List<Car> getCars() {
+
+    public List<CarPresenter> getCars() {
         return cars;
     }
 
     public static List<ClientPresenter> listFromClients(List<Client> client) {
-		return client.stream()
-				.map(ClientPresenter::new)
-				.collect(Collectors.toList());
-	}
-
-
+        return client.stream()
+                .map(ClientPresenter::new)
+                .collect(Collectors.toList());
+    }
 
 }

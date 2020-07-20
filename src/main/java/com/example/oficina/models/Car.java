@@ -28,10 +28,14 @@ public class Car implements Serializable{
     private String cor;
     private String placa;
     
-    @ManyToOne(fetch = FetchType.LAZY, optional = true )
+    @ManyToOne(fetch = FetchType.LAZY )
     @JoinColumn(name="client_id",referencedColumnName = "id", nullable=false)
     private Client client;
 
+    public Car() {
+        // default
+    }
+    
     public Car(String modelo, String cor, String placa, Client client) {
         this.modelo = modelo;
         this.cor = cor;

@@ -32,6 +32,8 @@ public class ClientController {
 
     @Autowired
     public ClientRepository clientRepository;
+//    @Autowired
+//    public CarRepository carRepository;
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ClientPresenter> createClient(@PathParam(value = "name") String name,
@@ -51,10 +53,11 @@ public class ClientController {
 
             Car car = new Car(modelo, cor, placa);
             client.getCars().add(car);
-            //car.setClient(client);
+            car.setClient(client);
+            //this.carRepository.saveAll(client.getCars());
         }
-        
-            this.clientRepository.save(client);        
+        client = this.clientRepository.save(client);
+
 
         URI path = uriBuilder.path("v1/client")
                 .buildAndExpand(client.getId()).toUri();

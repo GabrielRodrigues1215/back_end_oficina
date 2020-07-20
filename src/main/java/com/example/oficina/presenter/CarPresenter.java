@@ -12,7 +12,7 @@ import com.example.oficina.models.Car;
  * @author Gabriel
  */
 public class CarPresenter {
-    
+
     private Long id;
     private String modelo;
     private String cor;
@@ -24,8 +24,6 @@ public class CarPresenter {
         this.cor = car.getCor();
         this.placa = car.getPlaca();
     }
-    
-    
 
     public Long getId() {
         return id;
@@ -42,5 +40,5 @@ public class CarPresenter {
     public String getPlaca() {
         return placa;
     }
-    
+
 }
