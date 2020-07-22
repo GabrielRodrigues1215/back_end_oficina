@@ -7,12 +7,10 @@ package com.example.oficina.controllers;
 
 import com.example.oficina.models.Car;
 import com.example.oficina.models.Client;
-import com.example.oficina.presenter.CarPresenter;
 import com.example.oficina.presenter.ClientPresenter;
 import com.example.oficina.repository.ClientRepository;
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +24,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -87,9 +84,15 @@ public class ClientController {
             UriComponentsBuilder uriBuilder) {
 
         Client client = this.clientRepository.findAllById(id);
+        
+        if(client == null){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
 
         URI path = uriBuilder.path("v1/client/{id}")
                 .buildAndExpand(client.getId()).toUri();
+        
+        
 
         return ResponseEntity.created(path).body(new ClientPresenter(client));
     }
@@ -157,18 +160,20 @@ public class ClientController {
     }
     
 
-//    @DeleteMapping(value = "/{id}")
-//    public ResponseEntity deleteClient(
-//            @PathVariable(value = "id", required = true) Long id,
-//            UriComponentsBuilder uriBuilder) {
-//        
-//        
-//        Client result = this.clientRepository.delete(id);
-//        
-//        URI path = uriBuilder.path("v1/client/{id}")
-//                .buildAndExpand(result.getId()).toUri();
-//
-//        return ResponseEntity.created(path).body(new ClientPresenter(result));
-//    }
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity deleteClient(
+            @PathVariable(value = "id", required = true) Long id,
+            UriComponentsBuilder uriBuilder) {
+        
+        Client client = this.clientRepository.findAllById(id);
+        
+        if(client != null){
+            this.clientRepository.deleteById(id);
+            return new ResponseEntity(HttpStatus.OK);
+
+        }
+          return new ResponseEntity(HttpStatus.NOT_FOUND);
+
+    }
 
 }

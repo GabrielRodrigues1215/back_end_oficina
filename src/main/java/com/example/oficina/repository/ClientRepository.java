@@ -24,8 +24,8 @@ public interface ClientRepository extends CrudRepository<Client, Long> {
        
     Client findAllById(Long id);
     
-    
-    void delete(Long id);
-
+    @Override
+    void deleteById(Long id);
+   
    
 }
