@@ -30,7 +30,7 @@ public class Piece implements Serializable{
     private Long qtdPiece;
     
     @ManyToOne(fetch = FetchType.LAZY )
-    @JoinColumn(name="orcamento_id",referencedColumnName = "id", nullable=false)
+    @JoinColumn(name="orcamento_id", referencedColumnName = "id", nullable=false)
     private Orcamento orcamento;
 
 
@@ -40,16 +40,7 @@ public class Piece implements Serializable{
         this.preco = preco;
         this.qtdPiece = qtdPiece;
     }
-    public Piece(String name, String descricao, Double preco, Long qtdPiece, Orcamento orcamento) {
-        this.name = name;
-        this.descricao = descricao;
-        this.preco = preco;
-        this.qtdPiece = qtdPiece;
-        this.orcamento = orcamento;
-    }
 
-    
-    
     
     public Piece() {
         //default

@@ -6,6 +6,7 @@
 package com.example.oficina.controllers;
 
 import com.example.oficina.models.Func;
+import com.example.oficina.models.Orcamento;
 import com.example.oficina.models.Piece;
 import com.example.oficina.presenter.FuncPresenter;
 import com.example.oficina.presenter.PiecePresenter;
@@ -40,12 +41,12 @@ public class PieceController {
             @PathParam(value = "preco") Double preco,
             @PathParam(value = "qtdPiece") Long qtdPiece,
             UriComponentsBuilder uriBuilder) {
-
-        Piece piece = new Piece(name, descricao, preco, qtdPiece);
+        
+        Piece piece = new Piece(name, descricao, preco, qtdPiece );
 
         piece = this.pieceRepository.save(piece);
 
-        URI path = uriBuilder.path("v1/func")
+        URI path = uriBuilder.path("v1/piece")
                 .buildAndExpand(piece.getId()).toUri();
 
         return ResponseEntity.created(path).body(new PiecePresenter(piece));
